@@ -101,8 +101,9 @@ function validateForm(data) {
     errors.fullName = "Escribe un nombre de al menos 4 caracteres.";
   }
 
-  if (!Number.isInteger(data.age) || data.age < 12 || data.age > 90) {
-    errors.age = "La edad debe estar entre 12 y 90 años.";
+  if (!Number.isInteger(data.age) || data.age < 14 || data.age > 90)
+ {
+    errors.age = "La edad debe estar entre 14 y 90 años.";
   }
 
   if (!/^\d{10}$/.test(data.phone)) {
@@ -140,6 +141,8 @@ function clearAllErrors() {
 }
 
 function addParticipant(participant) {
+  console.log("Nuevo participante agregado:", participant.fullName);
+
   state.participants.unshift(participant);
   saveParticipants();
   render();
@@ -276,8 +279,14 @@ function generateControlledError() {
   console.group("Error controlado para depuración");
   console.warn("Este botón genera un error intencional para practicar lectura de consola.");
   try {
-    const missingElement = document.querySelector("#elementoQueNoExiste");
-    missingElement.textContent = "Esta línea genera el error controlado.";
+  const missingElement = document.querySelector("#elementoQueNoExiste");
+
+  if (missingElement) {
+    missingElement.textContent = "Elemento encontrado.";
+ } else {
+   console.warn("El elemento no existe en el HTML.");
+ }
+
   } catch (error) {
     console.error("Error controlado detectado:", error.message);
     console.info("Pista: document.querySelector devolvió null porque el elemento no existe.");
